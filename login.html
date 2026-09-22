@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Login - ResumePro</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        /* ============================= */
+        /* BODY */
+        /* ============================= */
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f5f7fb;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* ============================= */
+        /* BACKGROUND SHAPES */
+        /* ============================= */
+
+        body::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            background: #2563eb;
+
+            border-radius: 50%;
+
+            top: -250px;
+            left: -150px;
+
+            opacity: 0.08;
+        }
+
+
+        body::after {
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            background: #2563eb;
+
+            border-radius: 50%;
+
+            bottom: -250px;
+            right: -150px;
+
+            opacity: 0.08;
+        }
+
+
+        /* ============================= */
+        /* LOGIN CARD */
+        /* ============================= */
+
+        .login-card {
+
+            width: 420px;
+
+            background: #ffffff;
+
+            padding: 42px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(17, 24, 39, 0.12);
+
+            position: relative;
+
+            z-index: 2;
+
+            border: 1px solid #e5e7eb;
+
+        }
+
+
+        /* ============================= */
+        /* LOGO */
+        /* ============================= */
+
+        .logo-section {
+
+            text-align: center;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .logo {
+
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .tagline {
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+
+        }
+
+
+        /* ============================= */
+        /* HEADING */
+        /* ============================= */
+
+        .login-title {
+
+            text-align: center;
+
+            color: #111827;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin-top: 25px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .login-subtitle {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            margin-bottom: 28px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ============================= */
+        /* FORM */
+        /* ============================= */
+
+        .form-label {
+
+            color: #111827;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .form-control {
+
+            height: 48px;
+
+            border-radius: 10px;
+
+            border: 1px solid #d1d5db;
+
+            padding-left: 15px;
+
+            font-size: 15px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .form-control:focus {
+
+            border-color: #2563eb;
+
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+
+        }
+
+
+        /* ============================= */
+        /* LOGIN BUTTON */
+        /* ============================= */
+
+        .login-btn {
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .login-btn:hover {
+
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 18px rgba(37, 99, 235, 0.25);
+
+        }
+
+
+        /* ============================= */
+        /* FORGOT PASSWORD */
+        /* ============================= */
+
+        .forgot-password {
+
+            text-align: right;
+
+            margin-top: 10px;
+
+        }
+
+
+        .forgot-password a {
+
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .forgot-password a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* ============================= */
+        /* REGISTER */
+        /* ============================= */
+
+        .register-text {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+        }
+
+
+        .register-text a {
+
+            color: #2563eb;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .register-text a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* ============================= */
+        /* BACK HOME */
+        /* ============================= */
+
+        .back-home {
+
+            text-align: center;
+
+            margin-top: 18px;
+
+        }
+
+
+        .back-home a {
+
+            color: #6b7280;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .back-home a:hover {
+
+            color: #2563eb;
+
+        }
+
+
+        /* ============================= */
+        /* ERROR */
+        /* ============================= */
+
+        .alert-danger {
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ============================= */
+        /* RESPONSIVE */
+        /* ============================= */
+
+        @media (max-width: 500px) {
+
+            .login-card {
+
+                width: 90%;
+
+                padding: 30px 25px;
+
+            }
+
+            .logo {
+
+                font-size: 28px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ============================= -->
+<!-- LOGIN CARD -->
+<!-- ============================= -->
+
+<div class="login-card">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-section">
+
+        <div class="logo">
+
+            ResumePro
+
+        </div>
+
+        <div class="tagline">
+
+            Resume Builder & ATS Checker
+
+        </div>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <div class="login-title">
+
+        Welcome Back 👋
+
+    </div>
+
+
+    <div class="login-subtitle">
+
+        Login to continue to your ResumePro account
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- LOGIN FORM -->
+    <!-- ============================= -->
+
+    <form method="POST" autocomplete="off">
+
+
+        <!-- EMAIL -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Email Address
+
+            </label>
+
+            <input
+                type="email"
+                name="user_email"
+                class="form-control"
+                placeholder="Enter your email"
+                autocomplete="off"
+                required>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="mb-2">
+
+            <label class="form-label">
+
+                Password
+
+            </label>
+
+            <input
+                type="password"
+                name="user_password"
+                class="form-control"
+                placeholder="Enter your password"
+                autocomplete="new-password"
+                required>
+
+        </div>
+
+
+        <!-- FORGOT PASSWORD -->
+
+        <div class="forgot-password">
+
+            <a href="#">
+
+                Forgot Password?
+
+            </a>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+        <div class="alert alert-danger mt-3">
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- LOGIN BUTTON -->
+
+        <button
+            type="submit"
+            class="btn login-btn w-100 mt-3">
+
+            Login
+
+        </button>
+
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <div class="register-text">
+
+        Don't have an account?
+
+        <a href="{{ url_for('register') }}">
+
+            Register
+
+        </a>
+
+    </div>
+
+
+    <!-- HOME -->
+
+    <div class="back-home">
+
+        <a href="{{ url_for('home') }}">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

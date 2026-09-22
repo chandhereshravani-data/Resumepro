@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Resume Template - ResumePro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#111827}
+        .navbar-custom{background:#2563eb;padding:14px 35px}
+        .navbar-brand{color:#fff!important;font-size:25px;font-weight:700}
+        .navbar-brand span{color:#dbeafe}
+        .nav-link{color:#fff!important;margin-left:14px;font-weight:500}
+        .nav-link:hover{color:#dbeafe!important}
+        .page{padding:45px 7%}
+        .heading{text-align:center;margin-bottom:40px}
+        .heading h1{font-size:36px;font-weight:700;margin-bottom:8px}
+        .heading p{color:#6b7280;margin:0}
+        .card{border:1px solid #e5e7eb;border-radius:18px;overflow:hidden;background:#fff;height:100%;transition:.25s}
+        .card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.10)}
+        .preview{height:330px;background:#eef2ff;display:flex;align-items:center;justify-content:center;padding:20px}
+        .paper{width:190px;height:270px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.16);padding:16px;overflow:hidden}
+        .paper.prof{border-top:8px solid #111827}
+        .paper.modern{border-left:10px solid #2563eb}
+        .paper.ats{border-top:5px solid #374151}
+        .paper.creative{border-top:9px solid #7c3aed}
+        .name{font-weight:700;font-size:13px;margin-bottom:5px}
+        .line{height:5px;background:#d1d5db;border-radius:4px;margin:6px 0}
+        .small{width:55%}.medium{width:78%}
+        .section{font-size:9px;font-weight:700;margin-top:14px}
+        .prof .name,.prof .section,.ats .name,.ats .section{color:#111827}
+        .modern .name,.modern .section{color:#2563eb}
+        .creative .name,.creative .section{color:#7c3aed}
+        .info{padding:22px}
+        .badge-type{display:inline-block;background:#eff6ff;color:#2563eb;border-radius:20px;padding:5px 11px;font-size:11px;font-weight:700;margin-bottom:12px}
+        .info h4{font-weight:700}
+        .info p{color:#6b7280;min-height:48px}
+        .use{display:block;text-align:center;text-decoration:none;background:#2563eb;color:#fff;padding:11px;border-radius:9px;font-weight:600}
+        .use:hover{background:#1d4ed8;color:#fff}
+        .empty{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:40px;text-align:center;color:#6b7280}
+        .back{display:inline-block;margin-top:28px;text-decoration:none;color:#2563eb;font-weight:600}
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('user_dashboard') }}">Resume<span>Pro</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('user_dashboard') }}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('my_resumes') }}">My Resumes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">My Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="page">
+    <div class="heading">
+        <h1>Choose Your Resume Template</h1>
+        <p>Select a design and then enter your resume information.</p>
+    </div>
+
+    {% if templates %}
+    <div class="row g-4">
+        {% for template in templates %}
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="card">
+                <div class="preview">
+                    {% if template.template_type == 'Professional' %}
+                    <div class="paper prof">
+                        <div class="name">JOHN DOE</div><div class="line medium"></div>
+                        <div class="section">EXPERIENCE</div><div class="line"></div><div class="line"></div><div class="line small"></div>
+                        <div class="section">EDUCATION</div><div class="line"></div><div class="line small"></div>
+                        <div class="section">SKILLS</div><div class="line"></div>
+                    </div>
+                    {% elif template.template_type == 'Modern' %}
+                    <div class="paper modern">
+                        <div class="name">JOHN DOE</div><div class="line medium"></div>
+                        <div class="section">PROFILE</div><div class="line"></div><div class="line"></div>
+                        <div class="section">PROJECTS</div><div class="line"></div><div class="line small"></div>
+                        <div class="section">SKILLS</div><div class="line"></div>
+                    </div>
+                    {% elif template.template_type == 'ATS' %}
+                    <div class="paper ats">
+                        <div class="name">JOHN DOE</div><div class="line"></div>
+                        <div class="section">SUMMARY</div><div class="line"></div><div class="line"></div>
+                        <div class="section">EDUCATION</div><div class="line"></div>
+                        <div class="section">SKILLS</div><div class="line"></div><div class="line small"></div>
+                    </div>
+                    {% else %}
+                    <div class="paper creative">
+                        <div class="name">JOHN DOE</div><div class="line medium"></div>
+                        <div class="section">ABOUT ME</div><div class="line"></div><div class="line"></div>
+                        <div class="section">PROJECTS</div><div class="line"></div><div class="line small"></div>
+                        <div class="section">CONTACT</div><div class="line"></div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="info">
+                    <span class="badge-type">{{ template.template_type }}</span>
+                    <h4>{{ template.template_name }}</h4>
+                    <p>{{ template.description or 'Professional resume template.' }}</p>
+                    <a class="use" href="{{ url_for('resume_builder', template_id=template.template_id) }}">
+                        Use This Template
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">
+        <h4>No templates available</h4>
+        <p>Please ask the administrator to add resume templates.</p>
+    </div>
+    {% endif %}
+
+    <a class="back" href="{{ url_for('user_dashboard') }}">← Back to Dashboard</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

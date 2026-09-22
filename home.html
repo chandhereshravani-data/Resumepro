@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResumePro - Resume Builder & ATS Checker</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        /* ================================================= */
+        /* GLOBAL */
+        /* ================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+
+        /* ================================================= */
+        /* NAVBAR */
+        /* ================================================= */
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            color: #111827 !important;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+
+            background: #2563eb;
+            color: white;
+
+            border-radius: 10px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 10px;
+
+            font-size: 20px;
+
+            box-shadow: 0 5px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .brand-blue {
+            color: #2563eb;
+        }
+
+
+        /* ================================================= */
+        /* NAV LINKS */
+        /* ================================================= */
+
+        .nav-link {
+            color: #374151 !important;
+            font-weight: 500;
+            margin: 0 7px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #2563eb !important;
+        }
+
+
+        /* ================================================= */
+        /* BUTTONS */
+        /* ================================================= */
+
+        .btn-login {
+            color: #2563eb;
+
+            border: 1px solid #2563eb;
+
+            border-radius: 9px;
+
+            padding: 9px 22px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+
+        .btn-register {
+            background: #2563eb;
+            color: white;
+
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 10px 22px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .btn-register:hover {
+            background: #1d4ed8;
+            color: white;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 18px rgba(37, 99, 235, 0.25);
+        }
+
+
+        /* ================================================= */
+        /* HERO SECTION */
+        /* ================================================= */
+
+        .hero {
+            min-height: calc(100vh - 75px);
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f7fb 0%,
+                    #eff6ff 55%,
+                    #ffffff 100%
+                );
+        }
+
+
+        /* Background circles */
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 550px;
+            height: 550px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            opacity: 0.06;
+
+            top: -250px;
+            right: -150px;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+            height: 400px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            opacity: 0.05;
+
+            bottom: -220px;
+            left: -150px;
+        }
+
+
+        /* ================================================= */
+        /* HERO CONTENT */
+        /* ================================================= */
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            padding: 70px 0;
+        }
+
+
+        .hero-badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            border: 1px solid #dbeafe;
+
+            padding: 8px 16px;
+
+            border-radius: 50px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 {
+
+            font-size: clamp(42px, 6vw, 68px);
+
+            line-height: 1.08;
+
+            font-weight: 800;
+
+            letter-spacing: -2px;
+
+            color: #111827;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .hero h1 span {
+
+            color: #2563eb;
+
+        }
+
+
+        .hero-description {
+
+            font-size: 19px;
+
+            line-height: 1.7;
+
+            color: #6b7280;
+
+            max-width: 650px;
+
+            margin-bottom: 32px;
+
+        }
+
+
+        /* ================================================= */
+        /* HERO BUTTONS */
+        /* ================================================= */
+
+        .hero-buttons {
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .btn-primary-custom {
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 13px 28px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .btn-primary-custom:hover {
+
+            background: #1d4ed8;
+
+            color: white;
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 22px rgba(37, 99, 235, 0.25);
+
+        }
+
+
+        .btn-outline-custom {
+
+            background: white;
+
+            color: #111827;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            padding: 13px 28px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .btn-outline-custom:hover {
+
+            border-color: #2563eb;
+
+            color: #2563eb;
+
+            transform: translateY(-3px);
+
+        }
+
+
+        /* ================================================= */
+        /* HERO VISUAL */
+        /* ================================================= */
+
+        .hero-visual {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        .resume-preview {
+
+            width: 360px;
+
+            min-height: 470px;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 25px 60px rgba(17, 24, 39, 0.15);
+
+            transform: rotate(2deg);
+
+            border: 1px solid #e5e7eb;
+
+            position: relative;
+
+        }
+
+
+        .resume-top {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding-bottom: 18px;
+
+            border-bottom: 2px solid #2563eb;
+
+        }
+
+
+        .profile-circle {
+
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 26px;
+
+        }
+
+
+        .resume-name {
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+        }
+
+
+        .resume-role {
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            margin-top: 3px;
+
+        }
+
+
+        .resume-section {
+
+            margin-top: 22px;
+
+        }
+
+
+        .resume-section-title {
+
+            color: #2563eb;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .resume-line {
+
+            height: 7px;
+
+            background: #e5e7eb;
+
+            border-radius: 5px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .resume-line.short {
+
+            width: 65%;
+
+        }
+
+
+        .resume-line.medium {
+
+            width: 82%;
+
+        }
+
+
+        .resume-line.blue {
+
+            width: 45%;
+
+            background: #bfdbfe;
+
+        }
+
+
+        /* ATS floating card */
+
+        .ats-floating {
+
+            position: absolute;
+
+            right: -55px;
+
+            bottom: 45px;
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 15px 18px;
+
+            box-shadow:
+                0 15px 35px rgba(17, 24, 39, 0.14);
+
+            border: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            transform: rotate(-3deg);
+
+        }
+
+
+        .ats-icon {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+
+        }
+
+
+        .ats-title {
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+        }
+
+
+        .ats-score {
+
+            font-size: 12px;
+
+            color: #2563eb;
+
+            font-weight: 600;
+
+        }
+
+
+        /* ================================================= */
+        /* FEATURES */
+        /* ================================================= */
+
+        .features {
+
+            padding: 85px 0;
+
+            background: white;
+
+        }
+
+
+        .section-heading {
+
+            text-align: center;
+
+            margin-bottom: 50px;
+
+        }
+
+
+        .section-heading h2 {
+
+            font-size: 38px;
+
+            font-weight: 800;
+
+            color: #111827;
+
+        }
+
+
+        .section-heading p {
+
+            color: #6b7280;
+
+            margin-top: 10px;
+
+        }
+
+
+        .feature-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            height: 100%;
+
+            transition: 0.3s;
+
+        }
+
+
+        .feature-card:hover {
+
+            transform: translateY(-7px);
+
+            border-color: #bfdbfe;
+
+            box-shadow:
+                0 15px 35px rgba(37, 99, 235, 0.10);
+
+        }
+
+
+        .feature-icon {
+
+            width: 55px;
+            height: 55px;
+
+            border-radius: 13px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .feature-card h4 {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .feature-card p {
+
+            color: #6b7280;
+
+            line-height: 1.6;
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* ================================================= */
+        /* CTA */
+        /* ================================================= */
+
+        .cta {
+
+            padding: 80px 0;
+
+            background: #111827;
+
+            color: white;
+
+        }
+
+
+        .cta h2 {
+
+            font-size: 38px;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .cta p {
+
+            color: #d1d5db;
+
+            font-size: 17px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* ================================================= */
+        /* FOOTER */
+        /* ================================================= */
+
+        footer {
+
+            background: #111827;
+
+            border-top: 1px solid #374151;
+
+            color: #9ca3af;
+
+            padding: 20px 0;
+
+            text-align: center;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ================================================= */
+        /* RESPONSIVE */
+        /* ================================================= */
+
+        @media (max-width: 991px) {
+
+            .hero {
+
+                text-align: center;
+
+            }
+
+            .hero-content {
+
+                padding: 55px 0 30px;
+
+            }
+
+            .hero-description {
+
+                margin-left: auto;
+                margin-right: auto;
+
+            }
+
+            .hero-buttons {
+
+                justify-content: center;
+
+            }
+
+            .hero-visual {
+
+                margin-top: 50px;
+
+            }
+
+        }
+
+
+        @media (max-width: 576px) {
+
+            .navbar-brand {
+
+                font-size: 22px;
+
+            }
+
+            .hero h1 {
+
+                font-size: 42px;
+
+            }
+
+            .hero-description {
+
+                font-size: 16px;
+
+            }
+
+            .resume-preview {
+
+                width: 300px;
+
+            }
+
+            .ats-floating {
+
+                right: -10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================= -->
+<!-- NAVBAR -->
+<!-- ================================================= -->
+
+<nav class="navbar navbar-expand-lg sticky-top">
+
+    <div class="container">
+
+
+        <!-- BRAND -->
+
+        <a class="navbar-brand d-flex align-items-center"
+           href="{{ url_for('home') }}">
+
+            <span class="brand-icon">
+
+                <i class="bi bi-file-earmark-check"></i>
+
+            </span>
+
+            Resume<span class="brand-blue">Pro</span>
+
+        </a>
+
+
+        <!-- MOBILE BUTTON -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="#features">
+
+                        Features
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item ms-lg-2">
+
+                    <a
+                        class="btn btn-login"
+                        href="{{ url_for('login') }}">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+
+                    <a
+                        class="btn btn-register"
+                        href="{{ url_for('register') }}">
+
+                        Register
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================================================= -->
+<!-- HERO -->
+<!-- ================================================= -->
+
+<section class="hero">
+
+
+    <div class="container hero-content">
+
+        <div class="row align-items-center">
+
+
+            <!-- LEFT -->
+
+            <div class="col-lg-7">
+
+
+                <div class="hero-badge">
+
+                    <i class="bi bi-stars"></i>
+
+                    Build smarter. Apply with confidence.
+
+                </div>
+
+
+                <h1>
+
+                    Build an
+
+                    <span>ATS-Friendly</span>
+
+                    Resume
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Create a professional resume, check its ATS
+                    compatibility, and get ready to make a strong
+                    impression with recruiters.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="btn-primary-custom">
+
+                        <i class="bi bi-rocket-takeoff"></i>
+
+                        Get Started
+
+                    </a>
+
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="btn-outline-custom">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Login
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="col-lg-5 hero-visual">
+
+
+                <div class="resume-preview">
+
+
+                    <!-- Resume Header -->
+
+                    <div class="resume-top">
+
+                        <div class="profile-circle">
+
+                            <i class="bi bi-person"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="resume-name">
+
+                                YOUR NAME
+
+                            </div>
+
+                            <div class="resume-role">
+
+                                Computer Science Student
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Summary -->
+
+                    <div class="resume-section">
+
+                        <div class="resume-section-title">
+
+                            Profile
+
+                        </div>
+
+                        <div class="resume-line"></div>
+
+                        <div class="resume-line medium"></div>
+
+                        <div class="resume-line short"></div>
+
+                    </div>
+
+
+                    <!-- Skills -->
+
+                    <div class="resume-section">
+
+                        <div class="resume-section-title">
+
+                            Skills
+
+                        </div>
+
+                        <div class="resume-line blue"></div>
+
+                        <div class="resume-line medium"></div>
+
+                        <div class="resume-line short"></div>
+
+                    </div>
+
+
+                    <!-- Education -->
+
+                    <div class="resume-section">
+
+                        <div class="resume-section-title">
+
+                            Education
+
+                        </div>
+
+                        <div class="resume-line medium"></div>
+
+                        <div class="resume-line short"></div>
+
+                    </div>
+
+
+                    <!-- Projects -->
+
+                    <div class="resume-section">
+
+                        <div class="resume-section-title">
+
+                            Projects
+
+                        </div>
+
+                        <div class="resume-line"></div>
+
+                        <div class="resume-line medium"></div>
+
+                    </div>
+
+
+                    <!-- ATS CARD -->
+
+                    <div class="ats-floating">
+
+                        <div class="ats-icon">
+
+                            <i class="bi bi-bar-chart-fill"></i>
+
+                        </div>
+
+                        <div>
+
+                            <div class="ats-title">
+
+                                ATS Compatibility
+
+                            </div>
+
+                            <div class="ats-score">
+
+                                Ready to check
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- FEATURES -->
+<!-- ================================================= -->
+
+<section class="features" id="features">
+
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <h2>
+
+                Everything You Need
+
+            </h2>
+
+            <p>
+
+                Build, manage and improve your resume in one place.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-file-earmark-text"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Resume Builder
+
+                    </h4>
+
+                    <p>
+
+                        Create a structured and professional
+                        resume with an easy-to-use builder.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-bar-chart"></i>
+
+                    </div>
+
+                    <h4>
+
+                        ATS Checker
+
+                    </h4>
+
+                    <p>
+
+                        Analyze your resume and identify areas
+                        that may affect ATS compatibility.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-palette"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Professional Templates
+
+                    </h4>
+
+                    <p>
+
+                        Choose from clean and professional
+                        resume layouts designed for job applications.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-download"></i>
+
+                    </div>
+
+                    <h4>
+
+                        PDF Ready
+
+                    </h4>
+
+                    <p>
+
+                        Preview your resume and download it
+                        when your resume is ready.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- CALL TO ACTION -->
+<!-- ================================================= -->
+
+<section class="cta">
+
+
+    <div class="container text-center">
+
+
+        <h2>
+
+            Ready to Build Your Resume?
+
+        </h2>
+
+
+        <p>
+
+            Create your ResumePro account and start building
+            your professional resume.
+
+        </p>
+
+
+        <a
+            href="{{ url_for('register') }}"
+            class="btn-primary-custom">
+
+            <i class="bi bi-rocket-takeoff"></i>
+
+            Create Your Resume
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- FOOTER -->
+<!-- ================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        © 2026 ResumePro — Resume Builder & ATS Checker
+
+    </div>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

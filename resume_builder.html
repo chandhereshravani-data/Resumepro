@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Builder - ResumePro</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* ================= BODY ================= */
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #2563eb;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .builder-container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .page-header h2 {
+            font-weight: bold;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+
+
+        /* ================= SECTIONS ================= */
+
+        .resume-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #111827;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+
+        /* ================= FORM ================= */
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 8px;
+            padding: 11px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 0.2rem rgba(37,99,235,0.15);
+        }
+
+
+        /* ================= DYNAMIC ITEMS ================= */
+
+        .dynamic-item {
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #fafafa;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .add-btn {
+            margin-top: 10px;
+        }
+
+        .remove-btn {
+            float: right;
+        }
+
+
+        /* ================= SAVE AREA ================= */
+
+        .save-area {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
+
+
+        /* ================= REQUIRED STAR ================= */
+
+        .required {
+            color: red;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+                         NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container-fluid">
+
+        <a
+            class="navbar-brand ms-3 text-white text-decoration-none"
+            href="{{ url_for('user_dashboard') }}"
+        >
+            ResumePro
+        </a>
+
+
+        <span class="text-white me-4">
+
+            👤 {{ name }}
+
+        </span>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+                       MAIN CONTAINER
+========================================================= -->
+
+<div class="container builder-container">
+
+
+    <!-- ================= PAGE HEADER ================= -->
+
+    <div class="page-header">
+
+        <h2>
+            📄 Build Your Resume
+        </h2>
+
+        <p>
+            Fill in your details to create a professional and ATS-friendly resume.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                         RESUME FORM
+    ====================================================== -->
+
+    <form
+        method="POST"
+        action="{{ url_for('resume_builder') }}"
+    >
+
+
+        <!-- =================================================
+                    1. PERSONAL INFORMATION
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                1. Personal Information
+            </h4>
+
+
+            <div class="row">
+
+
+                <!-- FULL NAME -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Full Name
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="full_name"
+                        class="form-control"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Email
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ email }}"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+
+                        Phone Number
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        class="form-control"
+                        placeholder="Enter phone number"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CITY -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        City
+                    </label>
+
+                    <select
+                        name="city"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Select City
+                        </option>
+
+                        <option value="Pune">
+                            Pune
+                        </option>
+
+                        <option value="Mumbai">
+                            Mumbai
+                        </option>
+
+                        <option value="Nagpur">
+                            Nagpur
+                        </option>
+
+                        <option value="Nashik">
+                            Nashik
+                        </option>
+
+                        <option value="Patna">
+                            Patna
+                        </option>
+
+                        <option value="Ahmedabad">
+                            Ahmedabad
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- STATE -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        State
+                    </label>
+
+                    <select
+                        name="state"
+                        class="form-select"
+                    >
+
+                        <option value="">
+                            Select State
+                        </option>
+
+                        <option value="Maharashtra">
+                            Maharashtra
+                        </option>
+
+                        <option value="Gujarat">
+                            Gujarat
+                        </option>
+
+                        <option value="Rajasthan">
+                            Rajasthan
+                        </option>
+
+                        <option value="Madhya Pradesh">
+                            Madhya Pradesh
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- COUNTRY -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Country
+                    </label>
+
+                    <select
+                        name="country"
+                        class="form-select"
+                    >
+
+                        <option value="India" selected>
+                            India
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- LINKEDIN -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        LinkedIn Profile
+                    </label>
+
+                    <input
+                        type="url"
+                        name="linkedin"
+                        class="form-control"
+                        placeholder="https://linkedin.com/in/yourname"
+                    >
+
+                </div>
+
+
+
+                <!-- GITHUB -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        GitHub Profile
+                    </label>
+
+                    <input
+                        type="url"
+                        name="github"
+                        class="form-control"
+                        placeholder="https://github.com/yourname"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+                        2. CAREER OBJECTIVE
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                2. Career Objective
+            </h4>
+
+
+            <label class="form-label">
+                Career Objective
+            </label>
+
+
+            <textarea
+                name="career_objective"
+                class="form-control"
+                rows="5"
+                placeholder="Write a short professional career objective..."
+            ></textarea>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                            3. EDUCATION
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                3. Education
+            </h4>
+
+
+            <div id="education-container">
+
+
+                <!-- DEFAULT EDUCATION -->
+
+                <div class="dynamic-item">
+
+                    <div class="row">
+
+
+                        <!-- DEGREE -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Degree
+                            </label>
+
+                            <input
+                                type="text"
+                                name="degree[]"
+                                class="form-control"
+                                placeholder="B.Sc Computer Science"
+                            >
+
+                        </div>
+
+
+
+                        <!-- INSTITUTION -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                College / Institution
+                            </label>
+
+                            <input
+                                type="text"
+                                name="institution[]"
+                                class="form-control"
+                                placeholder="College Name"
+                            >
+
+                        </div>
+
+
+
+                        <!-- GRADUATION DATE -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Graduation Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="year[]"
+                                class="form-control"
+                            >
+
+                        </div>
+
+
+
+                        <!-- CGPA -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                CGPA / Percentage
+                            </label>
+
+                            <input
+                                type="text"
+                                name="grade[]"
+                                class="form-control"
+                                placeholder="8.5 CGPA / 85%"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ADD EDUCATION -->
+
+            <button
+                type="button"
+                class="btn btn-outline-primary add-btn"
+                onclick="addEducation()"
+            >
+
+                + Add Education
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                            4. SKILLS
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                4. Skills
+            </h4>
+
+
+            <div id="skills-container">
+
+
+                <!-- DEFAULT SKILL -->
+
+                <div class="dynamic-item">
+
+                    <div class="row">
+
+                        <div class="col-md-10">
+
+                            <input
+                                type="text"
+                                name="skill[]"
+                                class="form-control"
+                                placeholder="Python"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ADD SKILL -->
+
+            <button
+                type="button"
+                class="btn btn-outline-primary add-btn"
+                onclick="addSkill()"
+            >
+
+                + Add Skill
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                            5. PROJECTS
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                5. Projects
+            </h4>
+
+
+            <div id="projects-container">
+
+
+                <!-- DEFAULT PROJECT -->
+
+                <div class="dynamic-item">
+
+                    <div class="row">
+
+
+                        <!-- PROJECT NAME -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Project Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="project_name[]"
+                                class="form-control"
+                                placeholder="Resume Builder"
+                            >
+
+                        </div>
+
+
+
+                        <!-- TECHNOLOGIES -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Technologies
+                            </label>
+
+                            <input
+                                type="text"
+                                name="technologies[]"
+                                class="form-control"
+                                placeholder="Python, Flask, MySQL"
+                            >
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="col-12 mb-3">
+
+                            <label class="form-label">
+                                Project Description
+                            </label>
+
+                            <textarea
+                                name="project_description[]"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Describe your project..."
+                            ></textarea>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ADD PROJECT -->
+
+            <button
+                type="button"
+                class="btn btn-outline-primary add-btn"
+                onclick="addProject()"
+            >
+
+                + Add Project
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                            6. EXPERIENCE
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                6. Experience
+            </h4>
+
+
+            <div id="experience-container">
+
+
+                <!-- DEFAULT EXPERIENCE -->
+
+                <div class="dynamic-item">
+
+                    <div class="row">
+
+
+                        <!-- COMPANY -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Company
+                            </label>
+
+                            <input
+                                type="text"
+                                name="company[]"
+                                class="form-control"
+                                placeholder="Company Name"
+                            >
+
+                        </div>
+
+
+
+                        <!-- POSITION -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Position
+                            </label>
+
+                            <input
+                                type="text"
+                                name="position[]"
+                                class="form-control"
+                                placeholder="Software Developer Intern"
+                            >
+
+                        </div>
+
+
+
+                        <!-- START DATE -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="start_date[]"
+                                class="form-control"
+                            >
+
+                        </div>
+
+
+
+                        <!-- END DATE -->
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+                                End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="end_date[]"
+                                class="form-control"
+                            >
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        <div class="col-12 mb-3">
+
+                            <label class="form-label">
+                                Description
+                            </label>
+
+                            <textarea
+                                name="experience_description[]"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Describe your responsibilities..."
+                            ></textarea>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ADD EXPERIENCE -->
+
+            <button
+                type="button"
+                class="btn btn-outline-primary add-btn"
+                onclick="addExperience()"
+            >
+
+                + Add Experience
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                        7. CERTIFICATIONS
+        ================================================== -->
+
+        <div class="resume-section">
+
+            <h4 class="section-title">
+                7. Certifications
+            </h4>
+
+
+            <div id="certifications-container">
+
+
+                <!-- DEFAULT CERTIFICATION -->
+
+                <div class="dynamic-item">
+
+                    <div class="row">
+
+
+                        <!-- CERTIFICATION NAME -->
+
+                        <div class="col-md-5 mb-3">
+
+                            <label class="form-label">
+                                Certification Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="certification_name[]"
+                                class="form-control"
+                                placeholder="Python Certification"
+                            >
+
+                        </div>
+
+
+
+                        <!-- ISSUER -->
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+                                Issuing Organization
+                            </label>
+
+                            <input
+                                type="text"
+                                name="issuer[]"
+                                class="form-control"
+                                placeholder="Coursera"
+                            >
+
+                        </div>
+
+
+
+                        <!-- CERTIFICATION DATE -->
+
+                        <div class="col-md-3 mb-3">
+
+                            <label class="form-label">
+                                Certification Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="certification_year[]"
+                                class="form-control"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ADD CERTIFICATION -->
+
+            <button
+                type="button"
+                class="btn btn-outline-primary add-btn"
+                onclick="addCertification()"
+            >
+
+                + Add Certification
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+                            SAVE AREA
+        ================================================== -->
+
+        <div class="save-area text-center">
+
+
+            <button
+                type="submit"
+                class="btn btn-primary btn-lg px-5"
+            >
+
+                💾 Save Resume
+
+            </button>
+
+
+            <a
+                href="{{ url_for('user_dashboard') }}"
+                class="btn btn-secondary btn-lg ms-2"
+            >
+
+                Cancel
+
+            </a>
+
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+<!-- =========================================================
+                         JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+                        ADD EDUCATION
+========================================================= */
+
+function addEducation() {
+
+    const container =
+        document.getElementById("education-container");
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className = "dynamic-item";
+
+
+    div.innerHTML = `
+
+        <button
+            type="button"
+            class="btn btn-sm btn-danger remove-btn"
+            onclick="this.parentElement.remove()"
+        >
+            Remove
+        </button>
+
+
+        <div class="row">
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Degree
+                </label>
+
+                <input
+                    type="text"
+                    name="degree[]"
+                    class="form-control"
+                    placeholder="B.Sc Computer Science"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    College / Institution
+                </label>
+
+                <input
+                    type="text"
+                    name="institution[]"
+                    class="form-control"
+                    placeholder="College Name"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Graduation Date
+                </label>
+
+                <input
+                    type="date"
+                    name="year[]"
+                    class="form-control"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    CGPA / Percentage
+                </label>
+
+                <input
+                    type="text"
+                    name="grade[]"
+                    class="form-control"
+                    placeholder="8.5 CGPA / 85%"
+                >
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+}
+
+
+
+/* =========================================================
+                           ADD SKILL
+========================================================= */
+
+function addSkill() {
+
+    const container =
+        document.getElementById("skills-container");
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className = "dynamic-item";
+
+
+    div.innerHTML = `
+
+        <div class="row">
+
+            <div class="col-md-10">
+
+                <input
+                    type="text"
+                    name="skill[]"
+                    class="form-control"
+                    placeholder="JavaScript"
+                >
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="this.parentElement.parentElement.parentElement.remove()"
+                >
+
+                    Remove
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+}
+
+
+
+/* =========================================================
+                          ADD PROJECT
+========================================================= */
+
+function addProject() {
+
+    const container =
+        document.getElementById("projects-container");
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className = "dynamic-item";
+
+
+    div.innerHTML = `
+
+        <button
+            type="button"
+            class="btn btn-sm btn-danger remove-btn"
+            onclick="this.parentElement.remove()"
+        >
+
+            Remove
+
+        </button>
+
+
+        <div class="row">
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Project Name
+                </label>
+
+                <input
+                    type="text"
+                    name="project_name[]"
+                    class="form-control"
+                    placeholder="Project Name"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Technologies
+                </label>
+
+                <input
+                    type="text"
+                    name="technologies[]"
+                    class="form-control"
+                    placeholder="Python, Flask, MySQL"
+                >
+
+            </div>
+
+
+
+            <div class="col-12 mb-3">
+
+                <label class="form-label">
+                    Project Description
+                </label>
+
+                <textarea
+                    name="project_description[]"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Describe your project..."
+                ></textarea>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+}
+
+
+
+/* =========================================================
+                        ADD EXPERIENCE
+========================================================= */
+
+function addExperience() {
+
+    const container =
+        document.getElementById("experience-container");
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className = "dynamic-item";
+
+
+    div.innerHTML = `
+
+        <button
+            type="button"
+            class="btn btn-sm btn-danger remove-btn"
+            onclick="this.parentElement.remove()"
+        >
+
+            Remove
+
+        </button>
+
+
+        <div class="row">
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Company
+                </label>
+
+                <input
+                    type="text"
+                    name="company[]"
+                    class="form-control"
+                    placeholder="Company Name"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Position
+                </label>
+
+                <input
+                    type="text"
+                    name="position[]"
+                    class="form-control"
+                    placeholder="Software Developer Intern"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    Start Date
+                </label>
+
+                <input
+                    type="date"
+                    name="start_date[]"
+                    class="form-control"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                    End Date
+                </label>
+
+                <input
+                    type="date"
+                    name="end_date[]"
+                    class="form-control"
+                >
+
+            </div>
+
+
+
+            <div class="col-12 mb-3">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea
+                    name="experience_description[]"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Describe your responsibilities..."
+                ></textarea>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+}
+
+
+
+/* =========================================================
+                    ADD CERTIFICATION
+========================================================= */
+
+function addCertification() {
+
+    const container =
+        document.getElementById("certifications-container");
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className = "dynamic-item";
+
+
+    div.innerHTML = `
+
+        <button
+            type="button"
+            class="btn btn-sm btn-danger remove-btn"
+            onclick="this.parentElement.remove()"
+        >
+
+            Remove
+
+        </button>
+
+
+        <div class="row">
+
+
+            <div class="col-md-5 mb-3">
+
+                <label class="form-label">
+                    Certification Name
+                </label>
+
+                <input
+                    type="text"
+                    name="certification_name[]"
+                    class="form-control"
+                    placeholder="Python Certification"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-4 mb-3">
+
+                <label class="form-label">
+                    Issuing Organization
+                </label>
+
+                <input
+                    type="text"
+                    name="issuer[]"
+                    class="form-control"
+                    placeholder="Coursera"
+                >
+
+            </div>
+
+
+
+            <div class="col-md-3 mb-3">
+
+                <label class="form-label">
+                    Certification Date
+                </label>
+
+                <input
+                    type="date"
+                    name="certification_year[]"
+                    class="form-control"
+                >
+
+            </div>
+
+
+        </div>
+
+    `;
+
+
+    container.appendChild(div);
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

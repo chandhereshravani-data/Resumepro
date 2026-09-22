@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - ResumePro</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827 0%,
+                    #1e3a8a 45%,
+                    #2563eb 100%
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 20px;
+        }
+
+
+        /* =====================================================
+           BACKGROUND CIRCLES
+        ===================================================== */
+
+        body::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+
+            height: 450px;
+
+            background: #60a5fa;
+
+            border-radius: 50%;
+
+            top: -220px;
+
+            left: -150px;
+
+            opacity: 0.15;
+        }
+
+
+        body::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+
+            height: 400px;
+
+            background: #93c5fd;
+
+            border-radius: 50%;
+
+            bottom: -220px;
+
+            right: -120px;
+
+            opacity: 0.18;
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ===================================================== */
+
+        .admin-card {
+
+            width: 420px;
+
+            max-width: 100%;
+
+            background: rgba(255, 255, 255, 0.98);
+
+            padding: 42px;
+
+            border-radius: 22px;
+
+            position: relative;
+
+            z-index: 2;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.30);
+
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+
+        /* =====================================================
+           ADMIN ICON
+        ===================================================== */
+
+        .admin-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 18px;
+
+            background: #2563eb;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.30);
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: #111827;
+        }
+
+
+        .logo span {
+
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           SUBTITLE
+        ===================================================== */
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-top: 6px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* =====================================================
+           ADMIN BADGE
+        ===================================================== */
+
+        .admin-badge {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .admin-badge span {
+
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+            border: 1px solid #bfdbfe;
+
+            padding: 6px 14px;
+
+            border-radius: 50px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        .admin-title {
+
+            text-align: center;
+
+            color: #111827;
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+
+        .admin-description {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           LABELS
+        ===================================================== */
+
+        .form-label {
+
+            color: #111827;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* =====================================================
+           INPUTS
+        ===================================================== */
+
+        .form-control {
+
+            height: 48px;
+
+            border-radius: 10px;
+
+            border: 1px solid #d1d5db;
+
+            padding-left: 15px;
+
+            transition: 0.2s;
+        }
+
+
+        .form-control:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+        ===================================================== */
+
+        .admin-btn {
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-weight: 700;
+
+            font-size: 16px;
+
+            transition: 0.3s;
+        }
+
+
+        .admin-btn:hover {
+
+            background: #1d4ed8;
+
+            color: white;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .alert-danger {
+
+            border-radius: 10px;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           BACK HOME
+        ===================================================== */
+
+        .back-home {
+
+            text-align: center;
+
+            margin-top: 22px;
+        }
+
+
+        .back-home a {
+
+            color: #6b7280;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .back-home a:hover {
+
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 500px) {
+
+            .admin-card {
+
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+            .logo {
+
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-card">
+
+
+    <!-- =====================================================
+         ADMIN ICON
+    ===================================================== -->
+
+    <div class="admin-icon">
+
+        <i class="bi bi-shield-lock-fill"></i>
+
+    </div>
+
+
+    <!-- =====================================================
+         LOGO
+    ===================================================== -->
+
+    <div class="logo">
+
+        Resume<span>Pro</span>
+
+    </div>
+
+
+    <div class="subtitle">
+
+        Resume Builder & ATS Checker
+
+    </div>
+
+
+    <!-- =====================================================
+         ADMIN BADGE
+    ===================================================== -->
+
+    <div class="admin-badge">
+
+        <span>
+
+            <i class="bi bi-shield-check"></i>
+
+            ADMINISTRATOR ACCESS
+
+        </span>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADING
+    ===================================================== -->
+
+    <div class="admin-title">
+
+        Admin Login
+
+    </div>
+
+
+    <div class="admin-description">
+
+        Sign in to manage the ResumePro application.
+
+    </div>
+
+
+    <!-- =====================================================
+         FORM
+    ===================================================== -->
+
+    <form
+        method="POST"
+        autocomplete="off"
+    >
+
+
+        <!-- =================================================
+             EMAIL
+        ================================================= -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Admin Email
+
+            </label>
+
+            <input
+                type="email"
+                name="admin_email"
+                class="form-control"
+                placeholder="Enter admin email"
+                autocomplete="off"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             PASSWORD
+        ================================================= -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Password
+
+            </label>
+
+            <input
+                type="password"
+                name="admin_password"
+                class="form-control"
+                placeholder="Enter admin password"
+                autocomplete="new-password"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             ERROR
+        ================================================= -->
+
+        {% if error %}
+
+        <div class="alert alert-danger">
+
+            <i class="bi bi-exclamation-circle"></i>
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             LOGIN BUTTON
+        ================================================= -->
+
+        <button
+            type="submit"
+            class="btn admin-btn w-100"
+        >
+
+            <i class="bi bi-box-arrow-in-right"></i>
+
+            Login as Admin
+
+        </button>
+
+
+    </form>
+
+
+    <!-- =====================================================
+         BACK
+    ===================================================== -->
+
+    <div class="back-home">
+
+        <a href="{{ url_for('home') }}">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back to ResumePro
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

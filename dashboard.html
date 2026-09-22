@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard - ResumePro</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        /* ================= BODY ================= */
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #111827;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 70px;
+            background: #2563eb;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: white !important;
+        }
+
+        .user-name {
+            color: white;
+            font-size: 16px;
+            margin-right: 25px;
+        }
+
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            min-height: calc(100vh - 70px);
+            background: #111827;
+            padding-top: 25px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 14px 18px;
+            margin: 6px 10px;
+            border-radius: 9px;
+            font-size: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .sidebar a:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .sidebar .active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .logout {
+            color: #f87171 !important;
+            margin-top: 20px !important;
+        }
+
+        .logout:hover {
+            background: #dc2626 !important;
+            color: white !important;
+        }
+
+
+        /* ================= MAIN CONTENT ================= */
+
+        .main-content {
+            padding: 40px 35px;
+        }
+
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .welcome-text {
+            font-size: 17px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+
+        /* ================= DASHBOARD CARDS ================= */
+
+        .dashboard-card {
+            background: white;
+            border: none;
+            border-radius: 17px;
+            padding: 28px;
+            min-height: 280px;
+            height: 100%;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.07);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* ================= CARD ICON ================= */
+
+        .card-icon {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= CARD TITLE ================= */
+
+        .dashboard-card h4 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+
+        /* ================= CARD TEXT ================= */
+
+        .dashboard-card p {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 52px;
+            margin-bottom: 25px;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .dashboard-btn {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.25s;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1200px) {
+
+            .dashboard-card {
+                padding: 22px;
+            }
+
+            .dashboard-card h4 {
+                font-size: 21px;
+            }
+
+            .dashboard-card p {
+                font-size: 15px;
+            }
+
+        }
+
+
+        @media (max-width: 992px) {
+
+            .sidebar {
+                min-height: auto;
+                padding-bottom: 20px;
+            }
+
+            .main-content {
+                padding: 30px 20px;
+            }
+
+        }
+
+
+        @media (max-width: 768px) {
+
+            .welcome-title {
+                font-size: 26px;
+            }
+
+            .navbar {
+                height: auto;
+                padding: 15px 0;
+            }
+
+            .user-name {
+                margin-right: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================= -->
+<!-- NAVBAR -->
+<!-- ================================================= -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container-fluid">
+
+        <span class="navbar-brand ms-3">
+            ResumePro
+        </span>
+
+        <span class="user-name">
+            👤 {{ name }}
+        </span>
+
+    </div>
+
+</nav>
+
+
+<!-- ================================================= -->
+<!-- PAGE -->
+<!-- ================================================= -->
+
+<div class="container-fluid">
+
+    <div class="row">
+
+
+        <!-- ================================================= -->
+        <!-- SIDEBAR -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-2 col-md-3 sidebar">
+
+
+            <!-- Dashboard -->
+
+            <a href="{{ url_for('user_dashboard') }}"
+               class="active">
+
+                🏠 Dashboard
+
+            </a>
+
+
+            <!-- Create Resume -->
+
+            <a href="{{ url_for('user_templates') }}">
+
+                📄 Create Resume
+
+            </a>
+
+
+            <!-- My Resumes -->
+
+            <a href="{{ url_for('my_resumes') }}">
+
+                📁 My Resumes
+
+            </a>
+
+
+            <!-- ATS Checker -->
+
+            <a href="{{ url_for('ats_checker') }}">
+
+                📊 ATS Checker
+
+            </a>
+
+
+            <!-- My Profile -->
+
+            <a href="{{ url_for('profile') }}">
+
+                👤 My Profile
+
+            </a>
+
+
+            <!-- Logout -->
+
+            <a href="{{ url_for('logout') }}"
+               class="logout">
+
+                🚪 Logout
+
+            </a>
+
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- MAIN CONTENT -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-10 col-md-9 main-content">
+
+
+            <!-- ================= WELCOME ================= -->
+
+            <h2 class="welcome-title">
+
+                Welcome, {{ user_name }} 👋
+
+            </h2>
+
+
+            <p class="welcome-text">
+
+                Manage your resumes and check your ATS score.
+
+            </p>
+
+
+            <!-- ================================================= -->
+            <!-- FOUR CARDS -->
+            <!-- ================================================= -->
+
+            <div class="row g-4">
+
+
+                <!-- ================================================= -->
+                <!-- CREATE RESUME -->
+                <!-- ================================================= -->
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-icon">
+
+                            📄
+
+                        </div>
+
+
+                        <h4>
+
+                            Create Resume
+
+                        </h4>
+
+
+                        <p>
+
+                            Create a professional and ATS-friendly resume.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('user_templates') }}"
+                            class="btn btn-primary dashboard-btn">
+
+                            Choose Template
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- MY RESUMES -->
+                <!-- ================================================= -->
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-icon">
+
+                            📁
+
+                        </div>
+
+
+                        <h4>
+
+                            My Resumes
+
+                        </h4>
+
+
+                        <p>
+
+                            View and manage your saved resumes.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('my_resumes') }}"
+                            class="btn btn-primary dashboard-btn">
+
+                            View My Resumes
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- ATS CHECKER -->
+                <!-- ================================================= -->
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-icon">
+
+                            📊
+
+                        </div>
+
+
+                        <h4>
+
+                            ATS Checker
+
+                        </h4>
+
+
+                        <p>
+
+                            Check your resume compatibility with ATS.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('ats_checker') }}"
+                            class="btn btn-primary dashboard-btn">
+
+                            Check ATS
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- MY PROFILE -->
+                <!-- ================================================= -->
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="dashboard-card">
+
+
+                        <div class="card-icon">
+
+                            👤
+
+                        </div>
+
+
+                        <h4>
+
+                            My Profile
+
+                        </h4>
+
+
+                        <p>
+
+                            View and update your account information.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('profile') }}"
+                            class="btn btn-secondary dashboard-btn">
+
+                            View Profile
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- BOOTSTRAP JS -->
+<!-- ================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

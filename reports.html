@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Reports - ResumePro</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Chart.js -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f5f7fb;
+
+            color: #111827;
+
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 250px;
+
+            height: 100vh;
+
+            background: #111827;
+
+            padding: 25px 18px;
+
+            z-index: 1000;
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            color: #2563eb;
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .logo span {
+
+            color: white;
+
+        }
+
+
+        .menu-title {
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            margin: 20px 12px 10px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .sidebar a {
+
+            display: block;
+
+            color: #e5e7eb;
+
+            text-decoration: none;
+
+            padding: 12px 15px;
+
+            margin-bottom: 6px;
+
+            border-radius: 8px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .sidebar a:hover {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        .sidebar a.active {
+
+            background: #2563eb;
+
+            color: white;
+
+            font-weight: bold;
+
+        }
+
+
+        .logout {
+
+            position: absolute;
+
+            bottom: 25px;
+
+            left: 18px;
+
+            right: 18px;
+
+        }
+
+
+        .logout a {
+
+            background: #1f2937;
+
+        }
+
+
+        .logout a:hover {
+
+            background: #2563eb;
+
+            color: white;
+
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main {
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+        }
+
+
+        .topbar {
+
+            height: 75px;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+        }
+
+
+        .topbar h4 {
+
+            margin: 0;
+
+            font-weight: bold;
+
+            color: #111827;
+
+        }
+
+
+        .admin-badge {
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            padding: 9px 15px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+
+        }
+
+
+        .content {
+
+            padding: 35px;
+
+        }
+
+
+        .page-title {
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+            color: #111827;
+
+        }
+
+
+        .page-subtitle {
+
+            color: #6b7280;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        /* =========================================
+           STAT CARDS
+        ========================================= */
+
+        .stat-card {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            height: 100%;
+
+            transition: 0.3s;
+
+        }
+
+
+        .stat-card:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 8px 25px
+                rgba(37, 99, 235, 0.12);
+
+            border-color: #bfdbfe;
+
+        }
+
+
+        .stat-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .stat-card h2 {
+
+            margin: 0;
+
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #111827;
+
+        }
+
+
+        .stat-card p {
+
+            margin: 5px 0 0;
+
+            color: #6b7280;
+
+        }
+
+
+        /* =========================================
+           REPORT BOX
+        ========================================= */
+
+        .report-box {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            margin-top: 30px;
+
+        }
+
+
+        .report-box h5 {
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            color: #111827;
+
+        }
+
+
+        .report-description {
+
+            color: #6b7280;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        /* =========================================
+           CHART
+        ========================================= */
+
+        .chart-container {
+
+            position: relative;
+
+            height: 400px;
+
+            width: 100%;
+
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        .report-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        .report-table th {
+
+            background: #111827;
+
+            color: white;
+
+            padding: 14px;
+
+            text-align: left;
+
+        }
+
+
+        .report-table td {
+
+            padding: 14px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+        }
+
+
+        .report-table tr:hover {
+
+            background: #eff6ff;
+
+        }
+
+
+        .count-badge {
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 6px 14px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================================
+           SUMMARY
+        ========================================= */
+
+        .report-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #e5e7eb;
+
+        }
+
+
+        .report-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .report-name {
+
+            font-weight: 500;
+
+            color: #111827;
+
+        }
+
+
+        .report-value {
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            padding: 6px 14px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+
+                width: 210px;
+
+            }
+
+
+            .main {
+
+                margin-left: 210px;
+
+            }
+
+
+            .content {
+
+                padding: 25px;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+            }
+
+
+            .logout {
+
+                position: relative;
+
+                left: auto;
+
+                right: auto;
+
+                bottom: auto;
+
+                margin-top: 20px;
+
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+            }
+
+
+            .topbar {
+
+                padding: 0 20px;
+
+            }
+
+
+            .content {
+
+                padding: 20px;
+
+            }
+
+
+            .chart-container {
+
+                height: 300px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<div class="sidebar">
+
+
+    <div class="logo">
+
+        Resume<span>Pro</span>
+
+    </div>
+
+
+    <div class="menu-title">
+
+        Main
+
+    </div>
+
+
+    <a href="{{ url_for('admin_dashboard') }}">
+
+        🏠 Dashboard
+
+    </a>
+
+
+    <a href="{{ url_for('manage_users') }}">
+
+        👥 Manage Users
+
+    </a>
+
+
+    <a href="{{ url_for('manage_resumes') }}">
+
+        📄 Manage Resumes
+
+    </a>
+
+
+    <div class="menu-title">
+
+        Management
+
+    </div>
+
+
+    <a href="{{ url_for('manage_templates') }}">
+
+        🎨 Templates
+
+    </a>
+
+
+    <a href="{{ url_for('manage_keywords') }}">
+
+        🔑 ATS Keywords
+
+    </a>
+
+
+    <a
+        href="{{ url_for('admin_reports') }}"
+        class="active">
+
+        📊 Reports
+
+    </a>
+
+
+    <a href="{{ url_for('admin_feedback') }}">
+
+        💬 Feedback
+
+    </a>
+
+
+    <div class="logout">
+
+        <a href="{{ url_for('admin_logout') }}">
+
+            🚪 Logout
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<div class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+
+        <h4>
+
+            Reports
+
+        </h4>
+
+
+        <div class="admin-badge">
+
+            👤 {{ session.get(
+                'admin_name',
+                'Administrator'
+            ) }}
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <h2 class="page-title">
+
+            System Reports
+
+        </h2>
+
+
+        <p class="page-subtitle">
+
+            Overview of ResumePro activity and
+            resume creation data.
+
+        </p>
+
+
+
+        <!-- =====================================
+             STAT CARDS
+        ====================================== -->
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <h2>
+                        {{ total_users }}
+                    </h2>
+
+                    <p>
+                        Total Users
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📄
+                    </div>
+
+                    <h2>
+                        {{ total_resumes }}
+                    </h2>
+
+                    <p>
+                        Total Resumes
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🤖
+                    </div>
+
+                    <h2>
+                        {{ total_ats }}
+                    </h2>
+
+                    <p>
+                        ATS Reports
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        💬
+                    </div>
+
+                    <h2>
+                        {{ total_feedback }}
+                    </h2>
+
+                    <p>
+                        Feedback
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             MONTHLY RESUME GRAPH
+        ====================================== -->
+
+        <div class="report-box">
+
+
+            <h5>
+
+                📈 Monthly Resume Creation Report
+
+            </h5>
+
+
+            <p class="report-description">
+
+                Number of resumes created in each month.
+
+            </p>
+
+
+            <div class="chart-container">
+
+                <canvas id="resumeChart"></canvas>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             MONTHLY DATA TABLE
+        ====================================== -->
+
+        <div class="report-box">
+
+
+            <h5>
+
+                📅 Monthly Resume Data
+
+            </h5>
+
+
+            <p class="report-description">
+
+                Detailed monthly resume creation records.
+
+            </p>
+
+
+            <div class="table-responsive">
+
+
+                <table class="report-table">
+
+
+                    <thead>
+
+
+                        <tr>
+
+                            <th>
+                                Month
+                            </th>
+
+                            <th>
+                                Resumes Created
+                            </th>
+
+                        </tr>
+
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    {% if monthly_resumes %}
+
+
+                        {% for item in monthly_resumes %}
+
+
+                        <tr>
+
+
+                            <td>
+
+                                {{ item.month }}
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="count-badge">
+
+                                    {{ item.resume_count }}
+
+                                </span>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+
+                        <tr>
+
+                            <td
+                                colspan="2"
+                                class="text-center">
+
+                                No resume data available.
+
+                            </td>
+
+                        </tr>
+
+
+                    {% endif %}
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             RESUME DATA SUMMARY
+        ====================================== -->
+
+        <div class="report-box">
+
+
+            <h5>
+
+                📚 Resume Data Summary
+
+            </h5>
+
+
+            <p class="report-description">
+
+                Total resume components stored
+                in the database.
+
+            </p>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Education Records
+                </span>
+
+                <span class="report-value">
+                    {{ total_education }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Skills Added
+                </span>
+
+                <span class="report-value">
+                    {{ total_skills }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Projects Added
+                </span>
+
+                <span class="report-value">
+                    {{ total_projects }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Experience Records
+                </span>
+
+                <span class="report-value">
+                    {{ total_experience }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Certifications
+                </span>
+
+                <span class="report-value">
+                    {{ total_certifications }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             PLATFORM SUMMARY
+        ====================================== -->
+
+        <div class="report-box">
+
+
+            <h5>
+
+                📋 Platform Summary
+
+            </h5>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Registered Users
+                </span>
+
+                <span class="report-value">
+                    {{ total_users }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    Resumes Created
+                </span>
+
+                <span class="report-value">
+                    {{ total_resumes }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    ATS Checks
+                </span>
+
+                <span class="report-value">
+                    {{ total_ats }}
+                </span>
+
+            </div>
+
+
+            <div class="report-row">
+
+                <span class="report-name">
+                    User Feedback
+                </span>
+
+                <span class="report-value">
+                    {{ total_feedback }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     CHART SCRIPT
+========================================= -->
+
+<script>
+
+    /* -----------------------------------------
+       GET MONTHLY DATA FROM FLASK
+    ----------------------------------------- */
+
+    const resumeLabels = [
+
+        {% for item in monthly_resumes %}
+
+            "{{ item.month }}",
+
+        {% endfor %}
+
+    ];
+
+
+    const resumeData = [
+
+        {% for item in monthly_resumes %}
+
+            {{ item.resume_count }},
+
+        {% endfor %}
+
+    ];
+
+
+
+    /* -----------------------------------------
+       GET CANVAS
+    ----------------------------------------- */
+
+    const resumeChartCanvas =
+        document.getElementById(
+            "resumeChart"
+        );
+
+
+
+    /* -----------------------------------------
+       CREATE CHART
+    ----------------------------------------- */
+
+    if (resumeChartCanvas) {
+
+        new Chart(
+
+            resumeChartCanvas,
+
+            {
+
+                type: "line",
+
+
+                data: {
+
+                    labels: resumeLabels,
+
+
+                    datasets: [
+
+                        {
+
+                            label:
+                                "Resumes Created",
+
+
+                            data:
+                                resumeData,
+
+
+                            borderWidth: 3,
+
+
+                            tension: 0.35,
+
+
+                            fill: true
+
+                        }
+
+                    ]
+
+                },
+
+
+                options: {
+
+                    responsive: true,
+
+
+                    maintainAspectRatio: false,
+
+
+                    plugins: {
+
+                        legend: {
+
+                            display: true
+
+                        }
+
+                    },
+
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero: true,
+
+
+                            ticks: {
+
+                                precision: 0
+
+                            },
+
+
+                            title: {
+
+                                display: true,
+
+
+                                text:
+                                    "Number of Resumes"
+
+                            }
+
+                        },
+
+
+                        x: {
+
+                            title: {
+
+                                display: true,
+
+
+                                text:
+                                    "Month"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
+
+    }
+
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Resumes - ResumePro Admin</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #111827;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            height: 70px;
+            background: #111827;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 14px;
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+
+            top: 70px;
+            left: 0;
+            bottom: 0;
+
+            width: 250px;
+
+            background: #111827;
+
+            padding: 25px 15px;
+
+            z-index: 999;
+        }
+
+        .sidebar-title {
+            color: #9ca3af;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            padding: 0 15px 12px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 13px 15px;
+
+            margin-bottom: 5px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: #d1d5db;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidebar .logout {
+            margin-top: 25px;
+            color: #fca5a5;
+        }
+
+        .sidebar .logout:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+
+        /* MAIN */
+
+        .main-content {
+            margin-left: 250px;
+
+            padding: 100px 35px 40px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .page-title h2 {
+            margin: 0;
+
+            font-size: 28px;
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+        .page-title p {
+            margin-top: 7px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+        .total-badge {
+            background: #eff6ff;
+            color: #2563eb;
+
+            padding: 10px 17px;
+
+            border-radius: 25px;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        /* CARD */
+
+        .resume-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.06);
+        }
+
+        .card-header-custom {
+            padding: 20px 25px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header-custom h5 {
+            margin: 0;
+
+            font-size: 17px;
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+        .search-box {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-box i {
+            position: absolute;
+
+            left: 13px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #9ca3af;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            padding: 10px 12px 10px 38px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            border-color: #2563eb;
+
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f8fafc;
+        }
+
+        th {
+            padding: 15px 20px;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            color: #6b7280;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td {
+            padding: 17px 20px;
+
+            border-bottom: 1px solid #f0f0f0;
+
+            font-size: 14px;
+
+            color: #374151;
+        }
+
+        tbody tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #eff6ff;
+        }
+
+        .resume-id {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .resume-name {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .owner {
+            color: #6b7280;
+        }
+
+        .date {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .view-btn {
+            background: #2563eb;
+            color: white;
+
+            border: none;
+
+            padding: 7px 12px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            display: inline-block;
+
+            transition: 0.2s;
+        }
+
+        .view-btn:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+
+        /* EMPTY */
+
+        .empty-state {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .empty-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: auto;
+            margin-bottom: 18px;
+
+            border-radius: 50%;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 30px;
+        }
+
+        .empty-state h4 {
+            font-size: 18px;
+            color: #111827;
+        }
+
+        .empty-state p {
+            color: #6b7280;
+        }
+
+
+        @media(max-width:700px) {
+
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar-title,
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar a {
+                justify-content: center;
+            }
+
+            .main-content {
+                margin-left: 70px;
+                padding: 95px 15px;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .card-header-custom {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- TOPBAR -->
+
+<nav class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="bi bi-file-earmark-person-fill"></i>
+        </div>
+
+        ResumePro
+
+        <span style="font-size:13px;color:#9ca3af;">
+            Admin
+        </span>
+
+    </div>
+
+
+    <div class="admin-info">
+
+        <span>
+            {{ session.get('admin_name', 'Administrator') }}
+        </span>
+
+        <div class="admin-avatar">
+            <i class="bi bi-person-fill"></i>
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-title">
+        Administration
+    </div>
+
+
+    <a href="{{ url_for('admin_dashboard') }}">
+        <i class="bi bi-grid-1x2-fill"></i>
+        <span>Dashboard</span>
+    </a>
+
+
+    <a href="{{ url_for('manage_users') }}">
+        <i class="bi bi-people-fill"></i>
+        <span>Manage Users</span>
+    </a>
+
+
+    <a href="{{ url_for('manage_resumes') }}"
+       class="active">
+
+        <i class="bi bi-file-earmark-text-fill"></i>
+
+        <span>Manage Resumes</span>
+
+    </a>
+
+
+    <a href="{{ url_for('manage_templates') }}">
+        <i class="bi bi-layout-text-window-reverse"></i>
+        <span>Templates</span>
+    </a>
+
+
+    <a href="{{ url_for('manage_keywords') }}">
+        <i class="bi bi-tags-fill"></i>
+        <span>ATS Keywords</span>
+    </a>
+
+
+    <a href="{{ url_for('admin_reports') }}">
+        <i class="bi bi-bar-chart-fill"></i>
+        <span>Reports</span>
+    </a>
+
+
+    <a href="{{ url_for('admin_feedback') }}">
+        <i class="bi bi-chat-left-text-fill"></i>
+        <span>Feedback</span>
+    </a>
+
+
+    <a href="{{ url_for('admin_logout') }}"
+       class="logout">
+
+        <i class="bi bi-box-arrow-left"></i>
+
+        <span>Logout</span>
+
+    </a>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main-content">
+
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h2>Manage Resumes</h2>
+
+            <p>
+                View resumes created by ResumePro users.
+            </p>
+
+        </div>
+
+
+        <div class="total-badge">
+
+            <i class="bi bi-file-earmark-text-fill"></i>
+
+            {{ resumes|length }} Resumes
+
+        </div>
+
+    </div>
+
+
+    <div class="resume-card">
+
+
+        <div class="card-header-custom">
+
+            <h5>
+
+                <i class="bi bi-file-earmark-text me-2"></i>
+
+                Saved Resumes
+
+            </h5>
+
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="resumeSearch"
+                    placeholder="Search resumes..."
+                    onkeyup="searchResumes()"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+
+            {% if resumes %}
+
+            <table id="resumesTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Resume ID
+                        </th>
+
+                        <th>
+                            Resume Name
+                        </th>
+
+                        <th>
+                            User
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Created
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for resume in resumes %}
+
+                    <tr>
+
+                        <td class="resume-id">
+                            #{{ resume.resume_id }}
+                        </td>
+
+
+                        <td class="resume-name">
+
+                            {{ resume.full_name or "Untitled Resume" }}
+
+                        </td>
+
+
+                        <td class="owner">
+
+                            {{ resume.user_name or "Unknown User" }}
+
+                        </td>
+
+
+                        <td class="owner">
+
+                            {{ resume.email or "—" }}
+
+                        </td>
+
+
+                        <td class="date">
+
+                            {{ resume.created_at }}
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="{{ url_for('view_resume', resume_id=resume.resume_id) }}"
+                                class="view-btn"
+                            >
+
+                                <i class="bi bi-eye"></i>
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <i class="bi bi-file-earmark-x"></i>
+
+                </div>
+
+                <h4>
+                    No Resumes Found
+                </h4>
+
+                <p>
+                    No users have created a resume yet.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+function searchResumes() {
+
+    let input =
+        document
+        .getElementById("resumeSearch")
+        .value
+        .toLowerCase();
+
+    let rows =
+        document
+        .querySelectorAll("#resumesTable tbody tr");
+
+
+    rows.forEach(function(row) {
+
+        let text =
+            row.textContent.toLowerCase();
+
+        if (text.includes(input)) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>

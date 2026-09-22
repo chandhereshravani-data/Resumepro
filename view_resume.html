@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ resume.full_name }} - ResumePro</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        body {
+            background: #e5e7eb;
+            font-family: Arial, sans-serif;
+        }
+
+        .resume-page {
+
+            max-width: 850px;
+
+            margin: 40px auto;
+
+            background: white;
+
+            padding: 50px;
+
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+
+        }
+
+        .name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .contact {
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .section-title {
+
+            color: #2563eb;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            border-bottom: 2px solid #2563eb;
+
+            padding-bottom: 5px;
+
+            margin-top: 25px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .item-title {
+            font-weight: bold;
+        }
+
+        .date {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .toolbar {
+            max-width: 850px;
+            margin: 25px auto 0;
+        }
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .resume-page {
+                margin: 0;
+                box-shadow: none;
+                max-width: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     ACTION BUTTONS
+===================================================== -->
+
+<div class="toolbar d-flex justify-content-between">
+
+    <a href="{{ url_for('my_resumes') }}"
+       class="btn btn-secondary">
+
+        ← My Resumes
+
+    </a>
+
+    <button
+        onclick="window.print()"
+        class="btn btn-primary">
+
+        🖨 Print / Save PDF
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     RESUME
+===================================================== -->
+
+<div class="resume-page">
+
+
+    <!-- PERSONAL INFORMATION -->
+
+    <div class="name">
+
+        {{ resume.full_name }}
+
+    </div>
+
+
+    <div class="contact mt-2">
+
+        {% if resume.email %}
+            {{ resume.email }}
+        {% endif %}
+
+        {% if resume.phone %}
+            &nbsp; | &nbsp; {{ resume.phone }}
+        {% endif %}
+
+        {% if resume.city %}
+            &nbsp; | &nbsp; {{ resume.city }}
+        {% endif %}
+
+        {% if resume.state %}
+            , {{ resume.state }}
+        {% endif %}
+
+        {% if resume.country %}
+            , {{ resume.country }}
+        {% endif %}
+
+    </div>
+
+
+    {% if resume.linkedin or resume.github %}
+
+    <div class="contact mt-1">
+
+        {% if resume.linkedin %}
+
+        <a href="{{ resume.linkedin }}"
+           target="_blank">
+
+            LinkedIn
+
+        </a>
+
+        {% endif %}
+
+
+        {% if resume.github %}
+
+        {% if resume.linkedin %}
+            &nbsp; | &nbsp;
+        {% endif %}
+
+        <a href="{{ resume.github }}"
+           target="_blank">
+
+            GitHub
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         CAREER OBJECTIVE
+    ================================================== -->
+
+    {% if resume.career_objective %}
+
+    <div class="section-title">
+
+        CAREER OBJECTIVE
+
+    </div>
+
+    <p>
+
+        {{ resume.career_objective }}
+
+    </p>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         EDUCATION
+    ================================================== -->
+
+    {% if education %}
+
+    <div class="section-title">
+
+        EDUCATION
+
+    </div>
+
+    {% for item in education %}
+
+    <div class="mb-3">
+
+        <div class="item-title">
+
+            {{ item.degree }}
+
+        </div>
+
+        <div>
+
+            {{ item.institution }}
+
+        </div>
+
+        {% if item.year %}
+
+        <div class="date">
+
+            {{ item.year }}
+
+            {% if item.grade %}
+                | {{ item.grade }}
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =================================================
+         SKILLS
+    ================================================== -->
+
+    {% if skills %}
+
+    <div class="section-title">
+
+        SKILLS
+
+    </div>
+
+    <p>
+
+        {% for item in skills %}
+
+            <span class="badge text-bg-primary me-1 mb-1">
+
+                {{ item.skill_name }}
+
+            </span>
+
+        {% endfor %}
+
+    </p>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         PROJECTS
+    ================================================== -->
+
+    {% if projects %}
+
+    <div class="section-title">
+
+        PROJECTS
+
+    </div>
+
+    {% for item in projects %}
+
+    <div class="mb-3">
+
+        <div class="item-title">
+
+            {{ item.project_name }}
+
+        </div>
+
+        {% if item.technologies %}
+
+        <div class="date">
+
+            Technologies:
+            {{ item.technologies }}
+
+        </div>
+
+        {% endif %}
+
+        {% if item.description %}
+
+        <p class="mt-1">
+
+            {{ item.description }}
+
+        </p>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =================================================
+         EXPERIENCE
+    ================================================== -->
+
+    {% if experience %}
+
+    <div class="section-title">
+
+        EXPERIENCE
+
+    </div>
+
+    {% for item in experience %}
+
+    <div class="mb-3">
+
+        <div class="item-title">
+
+            {{ item.position }}
+
+        </div>
+
+        <div>
+
+            {{ item.company }}
+
+        </div>
+
+        {% if item.start_date or item.end_date %}
+
+        <div class="date">
+
+            {{ item.start_date }}
+
+            {% if item.end_date %}
+
+                - {{ item.end_date }}
+
+            {% else %}
+
+                - Present
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+        {% if item.description %}
+
+        <p class="mt-1">
+
+            {{ item.description }}
+
+        </p>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =================================================
+         CERTIFICATIONS
+    ================================================== -->
+
+    {% if certifications %}
+
+    <div class="section-title">
+
+        CERTIFICATIONS
+
+    </div>
+
+    {% for item in certifications %}
+
+    <div class="mb-3">
+
+        <div class="item-title">
+
+            {{ item.name }}
+
+        </div>
+
+        {% if item.issuer %}
+
+        <div>
+
+            {{ item.issuer }}
+
+        </div>
+
+        {% endif %}
+
+        {% if item.year %}
+
+        <div class="date">
+
+            {{ item.year }}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+
+</div>
+
+</body>
+</html>
